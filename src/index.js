@@ -1,10 +1,12 @@
 import express from "express";
+import consign from "consign";
 
 const app = express();
 
-//Settings
-app.set("port", process.env.PORT || 3050);
-
-app.listen(app.get("port"), () => {
-  console.log("Server on port", app.get("port"));
-});
+consign({
+  cwd: __dirname //current work directory
+})
+.include("libs/middlewares.js")
+.then("routes")
+.then("libs/boot.js")
+.into(app)

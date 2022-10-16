@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataType) => {
-  sequelize.define("Trips", {
+  const Trips = sequelize.define("Trips", {
     id: {
       type: DataType.INTEGER,
       primaryKey: true,
@@ -25,8 +25,8 @@ module.exports = (sequelize, DataType) => {
       validate: {
         isDate: true,
         isAfterThanStartDate(value) {
-          const startDate = new Date(this.start_date)
-          const endDate = new Date(value)
+          const startDate = new Date(this.start_date);
+          const endDate = new Date(value);
           if (startDate <= endDate) {
             throw new Error("End date must be after start date");
           }
@@ -34,4 +34,8 @@ module.exports = (sequelize, DataType) => {
       },
     },
   });
+  Trips.associate = (models) => {
+    Trips.belongsTo(models.Users)
+  };
+  return Trips
 };

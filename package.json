@@ -1,0 +1,25 @@
+{
+  "name": "travel-kit-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephv729/travel-kit-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stephv729/travel-kit-api/issues"
+  },
+  "homepage": "https://github.com/stephv729/travel-kit-api#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "sequelize": "^6.25.2",
+    "sqlite3": "^5.1.2"
+  }
+}

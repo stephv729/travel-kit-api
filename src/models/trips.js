@@ -9,7 +9,7 @@ module.exports = (sequelize, DataType) => {
       type: DataType.STRING,
       allowNull: false,
       validate: {
-        noEmpty: true,
+        notEmpty: true,
       },
     },
     start_date: {
@@ -25,6 +25,7 @@ module.exports = (sequelize, DataType) => {
       validate: {
         isDate: true,
         isAfterThanStartDate(value) {
+          console.log(value,"<----")
           const startDate = new Date(this.start_date);
           const endDate = new Date(value);
           if (startDate <= endDate) {

@@ -1,5 +1,5 @@
 module.exports = (app) => {
   app.get("/", (req, res) => {
-    res.json({status: "Success"})
+    res.json({status: "Travel Kit API"})
   });
 };

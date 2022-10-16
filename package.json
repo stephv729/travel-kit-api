@@ -21,5 +21,11 @@
     "express": "^4.18.2",
     "sequelize": "^6.25.2",
     "sqlite3": "^5.1.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
+    "@babel/node": "^7.19.1",
+    "@babel/preset-env": "^7.19.4"
   }
 }

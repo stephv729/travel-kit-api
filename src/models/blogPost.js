@@ -26,7 +26,7 @@
 
 'use strict';
 module.exports = (sequelize, DataType) => {
-  const Review = sequelize.define("BlogPost", {
+  const BlogPost = sequelize.define("BlogPost", {
     id: {
       type: DataType.INTEGER,
       primaryKey: true,

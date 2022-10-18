@@ -42,6 +42,7 @@ module.exports = (sequelize, DataType) => {
     classMethods: {
       associate(models) {
         Trip.belongsTo(models.Users)
+        Trip.hasOne(models.BlogPosts)
       },
     },
   });

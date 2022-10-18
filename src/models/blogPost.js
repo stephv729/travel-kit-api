@@ -36,14 +36,14 @@ module.exports = (sequelize, DataType) => {
       type: DataType.INTEGER,
       allowNull: false,
     },
-    Body: {
+    body: {
       type: DataType.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    Title: {
+    title: {
       type: DataType.STRING,
       allowNull: false,
       validate: {

@@ -38,7 +38,7 @@ module.exports = {
         },
       },
       UserId: {
-        // allowNull: false,
+        allowNull: false,
         type: Sequelize.INTEGER,
         onDelete: "CASCADE",
         references: {

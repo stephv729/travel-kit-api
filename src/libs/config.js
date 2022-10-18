@@ -30,36 +30,3 @@ const config = {
 };
 
 module.exports = config;
-
-// module.exports = {
-//   database: "travel-kit-db",
-//   username: "",
-//   password: "",
-//   params: {
-//     dialect: "sqlite",
-//     storage: "travel-kit-db.sqlite",
-//     define: {
-//       underscore: true,
-//     },
-//     operatorsAliases: 0,
-//   },
-// };
-
-// module.exports = {
-//   development: {
-//     dialect: "sqlite",
-//     storage: "./travel-kit-db.sqlite3",
-//     define: {
-//       underscore: true,
-//     },
-//     operatorsAliases: 0,
-//   },
-//   test: {
-//     dialect: "sqlite",
-//     storage: ":memory",
-//   },
-//   production: {
-//     dialect: "sqlite",
-//     storage: "./travel-kit-db.sqlite3",
-//   },
-// };

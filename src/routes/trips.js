@@ -11,13 +11,27 @@ module.exports = (app) => {
     .post((req, res) => {
       Trip.create(req.body)
         .then((data) => {
-          console.log(data);
-          return res.json({ status: "received and created" });
+          return res.json(data);
         })
         .catch((error) => {
           console.log("ERROR:", error.message);
-          // const errors = error.errors?.map((e) => e.message);
-          return res.status(422).json({ error: error.message });
+          const errors = error.errors?.map((e) => e.message);
+          return res
+            .status(422)
+            .json({ error: errors?.length !== 0 ? errors : error.message });
         });
+    });
+
+  app
+    .route("/trips/:id")
+    .get((req, res) => {
+      Trip.findOne({ where: req.params })
+        .then((data) => res.json(data))
+        .catch((error) => res.status(422).json({ error: error.message }));
+    })
+    .delete((req, res) => {
+      Trip.destroy({ where: req.params })
+        .then((data) => res.json({ status: "deleted" }))
+        .catch((error) => res.status(422).json({ error: error.message }));
     });
 };

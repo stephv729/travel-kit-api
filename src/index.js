@@ -7,7 +7,7 @@ consign({
   cwd: __dirname, //current work directory
 })
   .include("libs/config.js")
-  .then("db.js")
+  .then("models/index.js")
   .then("libs/middlewares.js")
   .then("routes")
   .then("libs/boot.js")

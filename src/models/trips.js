@@ -25,16 +25,15 @@ module.exports = (sequelize, DataType) => {
       validate: {
         isDate: true,
         isAfterThanStartDate(value) {
-          console.log(value,"<----")
           const startDate = new Date(this.start_date);
           const endDate = new Date(value);
-          if (startDate <= endDate) {
+          if (startDate >= endDate) {
             throw new Error("End date must be after start date");
           }
         },
       },
     },
-  });
+  },{timestamps: false});
   Trips.associate = (models) => {
     Trips.belongsTo(models.Users)
   };

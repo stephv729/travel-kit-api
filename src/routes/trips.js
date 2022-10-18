@@ -15,7 +15,8 @@ module.exports = (app) => {
           return res.json({ status: "received and created" });
         })
         .catch((error) => {
-          const errors = error.errors.map((e) => e.message);
+          console.log(error)
+          const errors = error.errors?.map((e) => e.message);
           return res.status(422).json({ errors });
         });
     });

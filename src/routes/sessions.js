@@ -1,6 +1,7 @@
 module.exports = (app) => {
   const User = app.models.index.models.User;
   const jwt = app.get("jwt");
+  const verification = app.get("verification");
 
   const payload = {
     check: true,
@@ -8,16 +9,26 @@ module.exports = (app) => {
 
   function generateToken() {
     return jwt.sign(payload, app.get("key"), {
-      expiresIn: "7d",
+      expiresIn: "1d",
     });
   }
 
-  app.get("/login", (req, res) => {
+  app.post("/login", (req, res) => {
     User.findOne({ where: { email: req.body.email } })
-      .then((user) => {
+      .then(async (user) => {
         if (user.dataValues.password === req.body.password) {
-          const token = generateToken();
-          return res.json({ ...user.dataValues, token });
+          const newToken = generateToken();
+
+          await User.update(
+            { token: newToken },
+            { where: { id: user.dataValues.id } }
+          );
+          const updatedUser = await User.findOne({
+            where: { id: user.dataValues.id },
+          });
+          app.set("user", updatedUser);
+          const { createdAt, updatedAt, token, ...userData } = user.dataValues;
+          return res.json({ ...userData, token: newToken });
         }
         res.json({ error: "Invalid Credentials" });
       })
@@ -26,9 +37,19 @@ module.exports = (app) => {
 
   app.post("/signup", (req, res) => {
     User.create(req.body)
-      .then((user) => {
-        const token = generateToken();
-        return res.json({ ...user.dataValues, token });
+      .then(async (user) => {
+        const newToken = generateToken();
+
+        await User.update(
+          { token: newToken },
+          { where: { id: user.dataValues.id } }
+        );
+        const updatedUser = await User.findOne({
+          where: { id: user.dataValues.id },
+        });
+        app.set("user", updatedUser);
+        const { createdAt, updatedAt, token, ...userData } = user.dataValues;
+        return res.json({ ...userData, token: newToken });
       })
       .catch((error) => {
         console.log("ERROR:", error);
@@ -39,7 +60,20 @@ module.exports = (app) => {
       });
   });
 
-  app.delete("/logout",(req,res)=>{
-    
-  })
+  app.delete("/logout", verification, async (req, res) => {
+    const currentUser = app.get("user");
+    console.log(currentUser);
+    if (!currentUser) {
+      return res.json({ error: "Must Signup or Login first" });
+    }
+    User.update(
+      { token: null },
+      { where: { id: currentUser.dataValues?.id } }
+    ).then(
+      ()=> res.json({ msg: "You logged out succesfully" })
+    ).catch(
+      (error)=>res.json({ error: error.message })
+    );
+   
+  });
 };

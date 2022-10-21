@@ -1,0 +1,1 @@
+export const tokenKey = "travel-kit-api-token";

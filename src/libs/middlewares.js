@@ -10,7 +10,7 @@ module.exports = (app) => {
     const tokenType = "Bearer ";
     if (!token) {
       return res.status(401).send({
-        error: "Must sign up or login",
+        error: "Must send a valid token",
       });
     }
     if (token.startsWith(tokenType)) {

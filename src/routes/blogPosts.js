@@ -39,7 +39,7 @@ module.exports = (app) => {
         const blogPost = await BlogPost.findOne({ where: req.params });
         const trip = await findTrip(blogPost);
         const user = await findUser(trip);
-        const { createdAt, updatedAt, ...userData } = user.dataValues;
+        const { createdAt, updatedAt, token,...userData } = user.dataValues;
         return res.json({
           ...blogPost.dataValues,
           userDetails: userData,

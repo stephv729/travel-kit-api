@@ -1,6 +1,6 @@
 module.exports = (app) => {
   const Trip = app.models.index.models.Trip;
-
+  const verification = app.get("verification")
   app
     .route("/trips")
     .get((req, res) => {
@@ -8,7 +8,7 @@ module.exports = (app) => {
         .then((data) => res.json(data))
         .catch((error) => res.status(422).json({ error: error.message }));
     })
-    .post((req, res) => {
+    .post(verification,(req, res) => {
       Trip.create(req.body)
         .then((data) => {
           return res.json(data);
@@ -29,7 +29,7 @@ module.exports = (app) => {
         .then((data) => res.json(data))
         .catch((error) => res.status(422).json({ error: error.message }));
     })
-    .delete((req, res) => {
+    .delete(verification,(req, res) => {
       Trip.destroy({ where: req.params })
         .then((data) => res.json({ status: "deleted" }))
         .catch((error) => res.status(422).json({ error: error.message }));

@@ -8,19 +8,6 @@ module.exports = (app) => {
         .then((data) => res.json(data))
         .catch((error) => res.status(422).json({ error: error.message }));
     })
-    .post((req, res) => {
-      User.create(req.body)
-        .then((data) => {
-          return res.json(data);
-        })
-        .catch((error) => {
-          console.log("ERROR:", error);
-          const errors = error.errors?.map((e) => e.message);
-          return res
-            .status(422)
-            .json({ error: errors?.length !== 0 ? errors : error.message });
-        });
-    });
 
   app
     .route("/users/:id")
